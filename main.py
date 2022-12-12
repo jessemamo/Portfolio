@@ -68,11 +68,18 @@
 #                 return mid
 #         return -1
 
+# class Solution(object):
+#     def searchInsert(self, nums, target):
+#         """
+#         :type nums: List[int]
+#         :type target: int
+#         :rtype: int
+#         """
+#         return bisect.bisect_left(nums,target)
 class Solution(object):
-    def searchInsert(self, nums, target):
+    def sortedSquares(self, nums):
         """
         :type nums: List[int]
-        :type target: int
-        :rtype: int
+        :rtype: List[int]
         """
-        return bisect.bisect_left(nums,target)
+        return sorted(map(lambda x: (x)**2, nums))
