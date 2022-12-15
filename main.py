@@ -102,20 +102,33 @@
 #         else:
 #             return self.compute(num-lsb, lsb) + self.dict[lsb]
 
+# class Solution(object):
+#     def romanToInt(self, s):
+#         const_dct = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+#
+#         lst = [const_dct[i] for i in s]
+#         res = 0
+#         idx = 0
+#
+#         while idx < len(lst):
+#             if idx < len(lst) - 1 and lst[idx] < lst[idx + 1]:
+#                 res -= lst[idx]
+#                 idx += 1
+#             else:
+#                 res += lst[idx]
+#                 idx += 1
+#
+#         return res
+
 class Solution(object):
-    def romanToInt(self, s):
-        const_dct = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
-
-        lst = [const_dct[i] for i in s]
-        res = 0
-        idx = 0
-
-        while idx < len(lst):
-            if idx < len(lst) - 1 and lst[idx] < lst[idx + 1]:
-                res -= lst[idx]
-                idx += 1
-            else:
-                res += lst[idx]
-                idx += 1
-
-        return res
+    def longestCommonPrefix(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: str
+        """
+        prefix = min(strs, key=len)
+        while not all(s.startswith(prefix) for s in strs):
+            prefix = prefix[:-1]
+        if not prefix:
+            prefix = ""
+        return prefix
