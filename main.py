@@ -120,15 +120,34 @@
 #
 #         return res
 
+# class Solution(object):
+#     def longestCommonPrefix(self, strs):
+#         """
+#         :type strs: List[str]
+#         :rtype: str
+#         """
+#         prefix = min(strs, key=len)
+#         while not all(s.startswith(prefix) for s in strs):
+#             prefix = prefix[:-1]
+#         if not prefix:
+#             prefix = ""
+#         return prefix
+
 class Solution(object):
-    def longestCommonPrefix(self, strs):
-        """
-        :type strs: List[str]
-        :rtype: str
-        """
-        prefix = min(strs, key=len)
-        while not all(s.startswith(prefix) for s in strs):
-            prefix = prefix[:-1]
-        if not prefix:
-            prefix = ""
-        return prefix
+    def threeSumClosest(self, nums, target):
+
+        list1=[]
+        nums.sort()
+        new=sum(nums[:3])
+        for i in range(len(nums)-2):
+            l=i+1
+            r=len(nums)-1
+            while l<r:
+                add=nums[i]+nums[r]+nums[l]
+                if abs(add-target)<abs(new-target):
+                    new=add
+                if add<target:
+                    l+=1
+                else:
+                    r-=1
+        return new
