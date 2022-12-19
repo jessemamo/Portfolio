@@ -134,20 +134,13 @@
 #         return prefix
 
 class Solution(object):
-    def threeSumClosest(self, nums, target):
+    def letterCombinations(self, digits):
+        if not digits:
+            return []
 
-        list1=[]
-        nums.sort()
-        new=sum(nums[:3])
-        for i in range(len(nums)-2):
-            l=i+1
-            r=len(nums)-1
-            while l<r:
-                add=nums[i]+nums[r]+nums[l]
-                if abs(add-target)<abs(new-target):
-                    new=add
-                if add<target:
-                    l+=1
-                else:
-                    r-=1
-        return new
+        mapping = {2:['a','b','c'],3:['d','e','f'],4:['g','h','i'],5:['j','k','l'],6:['m','n','o'],7:['p','q','r','s'],8:['t','u','v'],9:['w','x','y','z']}
+        ans = ['']
+        for d in digits:
+            ans = [comb+choice for comb in ans for choice in mapping[int(d)]]
+        return ans
+
