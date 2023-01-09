@@ -144,39 +144,54 @@
 #             ans = [comb+choice for comb in ans for choice in mapping[int(d)]]
 #         return ans
 
-class Solution(object):
-    def fourSum(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: List[List[int]]
-        """
-        result = list()
-        nums.sort()
-        start, end = 0, len(nums) - 1
-        while start < end:  # shift start (+1)
-            if start > 0 and nums[start] == nums[start-1]:
-                start += 1; continue
-            # the following  code is similar to 3Sum
-            while (start + 1) < (end - 1): # shift end (-1)
-                if end < len(nums)-1 and nums[end] == nums[end+1]:
-                    end -= 1; continue
-                left = start + 1
-                right = end - 1
-                while left < right:
-                    s = nums[start] + nums[left] + nums[right] + nums[end]
-                    if s < target:
-                        left += 1
-                    elif s > target:
-                        right -= 1
-                    else:
-                        result.append([nums[start], nums[left], nums[right], nums[end]])
-                        while left < right and nums[left] == nums[left + 1]:
-                            left += 1
-                        while left < right and nums[right] == nums[right - 1]:
-                            right -= 1
-                        left += 1; right -= 1
-                end -= 1
-            start += 1; end = len(nums) - 1
-        return result
+# class Solution(object):
+#     def fourSum(self, nums, target):
+#         """
+#         :type nums: List[int]
+#         :type target: int
+#         :rtype: List[List[int]]
+#         """
+#         result = list()
+#         nums.sort()
+#         start, end = 0, len(nums) - 1
+#         while start < end:  # shift start (+1)
+#             if start > 0 and nums[start] == nums[start-1]:
+#                 start += 1; continue
+#             # the following  code is similar to 3Sum
+#             while (start + 1) < (end - 1): # shift end (-1)
+#                 if end < len(nums)-1 and nums[end] == nums[end+1]:
+#                     end -= 1; continue
+#                 left = start + 1
+#                 right = end - 1
+#                 while left < right:
+#                     s = nums[start] + nums[left] + nums[right] + nums[end]
+#                     if s < target:
+#                         left += 1
+#                     elif s > target:
+#                         right -= 1
+#                     else:
+#                         result.append([nums[start], nums[left], nums[right], nums[end]])
+#                         while left < right and nums[left] == nums[left + 1]:
+#                             left += 1
+#                         while left < right and nums[right] == nums[right - 1]:
+#                             right -= 1
+#                         left += 1; right -= 1
+#                 end -= 1
+#             start += 1; end = len(nums) - 1
+#         return result
 
+if head == None or head.next==None:
+    return head
+first=head
+second=head.next.next
+head=head.next
+head.next=first
+while second and second.next :
+    first.next=second.next
+    temp=second.next.next
+    second.next.next=second
+    second.next=None
+    first=second
+    second=temp
+first.next=second
+return head
