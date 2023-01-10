@@ -180,18 +180,59 @@
 #             start += 1; end = len(nums) - 1
 #         return result
 
-if head == None or head.next==None:
-    return head
-first=head
-second=head.next.next
-head=head.next
-head.next=first
-while second and second.next :
-    first.next=second.next
-    temp=second.next.next
-    second.next.next=second
-    second.next=None
-    first=second
-    second=temp
-first.next=second
-return head
+# if head == None or head.next==None:
+#     return head
+# first=head
+# second=head.next.next
+# head=head.next
+# head.next=first
+# while second and second.next :
+#     first.next=second.next
+#     temp=second.next.next
+#     second.next.next=second
+#     second.next=None
+#     first=second
+#     second=temp
+# first.next=second
+# return head
+
+class Solution(object):
+    def reverseKGroup(self, head, k):
+        new = ListNode()
+        new.next = head
+
+        curr = head
+        prev = new
+        last_end = new
+        is_valid = True
+
+        while curr:
+
+            counter = 1
+            checker = curr
+
+            while counter < k:
+                checker = checker.next
+                if checker is None:
+                    is_valid = False
+                    break
+                counter += 1
+
+            if not is_valid:
+                break
+
+            counter = 0
+
+            while counter < k:
+                temp = curr.next
+                curr.next = prev
+                prev = curr
+                curr = temp
+                counter += 1
+
+            swap_end = last_end.next
+            last_end.next = prev
+            swap_end.next = curr
+            last_end = swap_end
+
+        return new.next
