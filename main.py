@@ -244,18 +244,32 @@
 #                 nums.remove(i)
 #         return len(nums)
 
+# class Solution(object):
+#     def removeElement(self, nums, val):
+#         """
+#         :type nums: List[int]
+#         :type val: int
+#         :rtype: int
+#         """
+#         g = len(nums)
+#         k = 0
+#         for i in nums:
+#             if i == val:
+#                 k += 1
+#         for i in range(0, k):
+#             nums.remove(val)
+#         return (g-k)
+
 class Solution(object):
-    def removeElement(self, nums, val):
+    def strStr(self, haystack, needle):
         """
-        :type nums: List[int]
-        :type val: int
+        :type haystack: str
+        :type needle: str
         :rtype: int
         """
-        g = len(nums)
-        k = 0
-        for i in nums:
-            if i == val:
-                k += 1
-        for i in range(0, k):
-            nums.remove(val)
-        return (g-k)
+
+        for i in range(len(haystack)):
+            if haystack[i:i+len(needle)] == needle:
+                return i
+
+        return -1
