@@ -237,9 +237,25 @@
 #
 #         return new.next
 
+# class Solution(object):
+#     def removeDuplicates(self, nums):
+#         for i in nums:
+#             while i in nums[nums.index(i)+1:]:
+#                 nums.remove(i)
+#         return len(nums)
+
 class Solution(object):
-    def removeDuplicates(self, nums):
+    def removeElement(self, nums, val):
+        """
+        :type nums: List[int]
+        :type val: int
+        :rtype: int
+        """
+        g = len(nums)
+        k = 0
         for i in nums:
-            while i in nums[nums.index(i)+1:]:
-                nums.remove(i)
-        return len(nums)
+            if i == val:
+                k += 1
+        for i in range(0, k):
+            nums.remove(val)
+        return (g-k)
