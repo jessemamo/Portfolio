@@ -260,16 +260,25 @@
 #             nums.remove(val)
 #         return (g-k)
 
+# class Solution(object):
+#     def strStr(self, haystack, needle):
+#         """
+#         :type haystack: str
+#         :type needle: str
+#         :rtype: int
+#         """
+#
+#         for i in range(len(haystack)):
+#             if haystack[i:i+len(needle)] == needle:
+#                 return i
+#
+#         return -1
+
 class Solution(object):
-    def strStr(self, haystack, needle):
+    def divide(self, dividend, divisor):
         """
-        :type haystack: str
-        :type needle: str
+        :type dividend: int
+        :type divisor: int
         :rtype: int
         """
-
-        for i in range(len(haystack)):
-            if haystack[i:i+len(needle)] == needle:
-                return i
-
-        return -1
+        return min(2 ** 31 - 1, int(str(float(dividend) / float(divisor)).split(".")[0]))
