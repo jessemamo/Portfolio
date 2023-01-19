@@ -274,11 +274,75 @@
 #
 #         return -1
 
+# class Solution(object):
+#     def divide(self, dividend, divisor):
+#         """
+#         :type dividend: int
+#         :type divisor: int
+#         :rtype: int
+#         """
+#         return min(2 ** 31 - 1, int(str(float(dividend) / float(divisor)).split(".")[0]))
+
 class Solution(object):
-    def divide(self, dividend, divisor):
+    def findSubstring(self, s, words):
         """
-        :type dividend: int
-        :type divisor: int
-        :rtype: int
+        :type s: str
+        :type words: List[str]
+        :rtype: List[int]
         """
-        return min(2 ** 31 - 1, int(str(float(dividend) / float(divisor)).split(".")[0]))
+        slen = len(s)
+        wlen = len(words[0])
+        conSlen = len(words[0]) * len(words)
+        word_count = collections.Counter(words)
+        res = []
+
+        def getSub(j):
+            return s[j:wlen + j]
+
+        def checkSub(i):
+            remaningCount = word_count.copy()
+            wordCount = 0
+
+            for j in range(i,i+conSlen,wlen):
+                subs = getSub(j)
+                if subs in word_count and remaningCount[subs] > 0:
+                    remaningCount[subs] -= 1
+                    wordCount += 1
+                else:
+                    break
+            return wordCount == len(words)
+
+        for i in range(len(s) - conSlen +1):
+            if getSub(i) in word_count:
+                if checkSub(i):
+                    res.append(i)
+        return res
+
+
+        solutions = []
+        word_len = len(words[0])
+        sub_len = word_len * len(words)
+        micro_dict = {}
+        for i in range(len(s)):
+            word = s[i:i+word_len]
+            if word in words:
+                if (i-word_len) in micro_dict:
+                    if ( (i+word_len)-micro_dict[(i-word_len)] ) <=sub_len:
+                        micro_dict[i] = micro_dict[(i-word_len)]
+                    else:
+                        micro_dict[i] = micro_dict[(i-word_len)]+word_len
+                else:
+                    micro_dict[i] = i
+        inv_map = {}
+        for k, v in micro_dict.items():
+            inv_map[v] = inv_map.get(v, []) + [k]
+        for k, v in inv_map.items():
+            inv_map[k] = max(inv_map[k])+word_len
+
+        for start, end in inv_map.items():
+            temp_dict = {}
+            if end-start ==sub_len:
+                temp_dict = helper(temp_dict, s[start:end])
+            if temp_dict == words_dict:
+                solutions.append(start)
+        return solutions
