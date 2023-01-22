@@ -347,19 +347,41 @@
 #                 solutions.append(start)
 #         return solutions
 
+# class Solution(object):
+#     def nextPermutation(self, nums):
+#         """
+#         :type nums: List[int]
+#         :rtype: None Do not return anything, modify nums in-place instead.
+#         """
+#         bPoint, n = -1, len(nums)
+#         for i in range(n-2,-1,-1):
+#             if nums[i] >= nums[i+1]: continue
+#             bPoint = i
+#             for j in range(n-1,i,-1):
+#                 if nums[j] > nums[bPoint]:
+#                     nums[j], nums[bPoint] = nums[bPoint], nums[j]
+#                     break
+#             break
+#         nums[bPoint+1:] = reversed(nums[bPoint+1:])
+
 class Solution(object):
-    def nextPermutation(self, nums):
+    def search(self, nums, target):
         """
         :type nums: List[int]
-        :rtype: None Do not return anything, modify nums in-place instead.
+        :type target: int
+        :rtype: int
         """
-        bPoint, n = -1, len(nums)
-        for i in range(n-2,-1,-1):
-            if nums[i] >= nums[i+1]: continue
-            bPoint = i
-            for j in range(n-1,i,-1):
-                if nums[j] > nums[bPoint]:
-                    nums[j], nums[bPoint] = nums[bPoint], nums[j]
-                    break
-            break
-        nums[bPoint+1:] = reversed(nums[bPoint+1:])
+        i,j=0,len(nums)
+        while(i<j):
+            mid=(i+j)//2
+            if target<nums[0]<nums[mid]:
+                i=mid+1
+            elif target>=nums[0]>nums[mid]:
+                j=mid
+            elif nums[mid]<target:
+                i=mid+1
+            elif nums[mid]>target:
+                j=mid
+            else:
+                return mid
+        return -1
