@@ -364,24 +364,36 @@
 #             break
 #         nums[bPoint+1:] = reversed(nums[bPoint+1:])
 
+# class Solution(object):
+#     def search(self, nums, target):
+#         """
+#         :type nums: List[int]
+#         :type target: int
+#         :rtype: int
+#         """
+#         i,j=0,len(nums)
+#         while(i<j):
+#             mid=(i+j)//2
+#             if target<nums[0]<nums[mid]:
+#                 i=mid+1
+#             elif target>=nums[0]>nums[mid]:
+#                 j=mid
+#             elif nums[mid]<target:
+#                 i=mid+1
+#             elif nums[mid]>target:
+#                 j=mid
+#             else:
+#                 return mid
+#         return -1
+
+
 class Solution(object):
-    def search(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: int
-        """
-        i,j=0,len(nums)
-        while(i<j):
-            mid=(i+j)//2
-            if target<nums[0]<nums[mid]:
-                i=mid+1
-            elif target>=nums[0]>nums[mid]:
-                j=mid
-            elif nums[mid]<target:
-                i=mid+1
-            elif nums[mid]>target:
-                j=mid
-            else:
-                return mid
-        return -1
+    def searchRange(self,n,t):
+        r=[-1,-1]
+        try:
+            r[0]=n.index(t)
+            n[:]=n[::-1]
+            r[1]=len(n)-(n.index(t)+1)
+        except:
+            return r
+        return r
