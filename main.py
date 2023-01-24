@@ -387,13 +387,37 @@
 #         return -1
 
 
+# class Solution(object):
+#     def searchRange(self,n,t):
+#         r=[-1,-1]
+#         try:
+#             r[0]=n.index(t)
+#             n[:]=n[::-1]
+#             r[1]=len(n)-(n.index(t)+1)
+#         except:
+#             return r
+#         return r
+
 class Solution(object):
-    def searchRange(self,n,t):
-        r=[-1,-1]
-        try:
-            r[0]=n.index(t)
-            n[:]=n[::-1]
-            r[1]=len(n)-(n.index(t)+1)
-        except:
-            return r
-        return r
+    def isValidSudoku(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: bool
+        """
+        cols = collections.defaultdict(set)
+        rows = collections.defaultdict(set)
+        squares = collections.defaultdict(set)
+
+        for r in range(9):
+            for c in range (9):
+                if board[r][c] == ".": #if empty
+                    continue
+                if (board[r][c] in rows[r] or
+                        board[r][c] in cols[c] or
+                        board[r][c] in squares[(r//3,c//3)]):
+                    return False
+                    #update the sets
+                cols[c].add(board[r][c])
+                rows[r].add(board[r][c])
+                squares[(r//3, c//3)].add(board[r][c])
+        return True
