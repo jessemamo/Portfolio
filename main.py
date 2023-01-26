@@ -422,56 +422,92 @@
 #                 squares[(r//3, c//3)].add(board[r][c])
 #         return True
 
+# class Solution(object):
+#     def solveSudoku(self, board):
+#         """
+#         :type board: List[List[str]]
+#         :rtype: None Do not return anything, modify board in-place instead.
+#         """
+#
+#         solve_sudoku(board)
+#
+# def solve_sudoku(grid):
+#     row, col = find_empty_cell(grid)
+#     if row == -1:
+#         return True
+#
+#     for num in range(1, 10):
+#         if is_safe(grid, row, col, num):
+#             grid[row][col] = str(num)
+#
+#             if solve_sudoku(grid):
+#                 return True
+#
+#             grid[row][col] = '.'
+#
+#     return False
+#
+# def find_empty_cell(grid):
+#     for i in range(9):
+#         for j in range(9):
+#             if grid[i][j] == '.':
+#                 return (i, j)
+#
+#     return (-1, -1)
+#
+# def is_safe(grid, row, col, num):
+#     # Check if the number is already in the current row
+#     for i in range(9):
+#         if grid[row][i] == str(num):
+#             return False
+#
+#     # Check if the number is already in the current column
+#     for i in range(9):
+#         if grid[i][col] == str(num):
+#             return False
+#
+#     # Check if the number is already in the current 3x3 box
+#     start_row = row - row % 3
+#     start_col = col - col % 3
+#     for i in range(3):
+#         for j in range(3):
+#             if grid[start_row + i][start_col + j] == str(num):
+#                 return False
+#
+#     return True
+
 class Solution(object):
-    def solveSudoku(self, board):
+    #function that calculate new string based on the last one
+    def getString(self, lastString):
+        currLength = 1
+        curChar = lastString[0:1]
+        string=''
+        for car in lastString[1:]:
+            if car != curChar:
+                string+=str(currLength)+curChar
+                curChar=car
+                currLength = 1
+
+            else:
+                currLength+=1
+        #this is to insert in the string the set of caracter at the end of last string.
+        string+=str(currLength)+curChar
+        return string
+
+    def countAndSay(self, n):
         """
-        :type board: List[List[str]]
-        :rtype: None Do not return anything, modify board in-place instead.
+        :type n: int
+        :rtype: str
         """
 
-        solve_sudoku(board)
-
-def solve_sudoku(grid):
-    row, col = find_empty_cell(grid)
-    if row == -1:
-        return True
-
-    for num in range(1, 10):
-        if is_safe(grid, row, col, num):
-            grid[row][col] = str(num)
-
-            if solve_sudoku(grid):
-                return True
-
-            grid[row][col] = '.'
-
-    return False
-
-def find_empty_cell(grid):
-    for i in range(9):
-        for j in range(9):
-            if grid[i][j] == '.':
-                return (i, j)
-
-    return (-1, -1)
-
-def is_safe(grid, row, col, num):
-    # Check if the number is already in the current row
-    for i in range(9):
-        if grid[row][i] == str(num):
-            return False
-
-    # Check if the number is already in the current column
-    for i in range(9):
-        if grid[i][col] == str(num):
-            return False
-
-    # Check if the number is already in the current 3x3 box
-    start_row = row - row % 3
-    start_col = col - col % 3
-    for i in range(3):
-        for j in range(3):
-            if grid[start_row + i][start_col + j] == str(num):
-                return False
-
-    return True
+        if n==1:
+            return '1'
+        elif n==2:
+            return '11'
+        else:
+            currentN = 3
+            string = '11'
+            while currentN != n+1:
+                string = self.getString(string)
+                currentN+=1
+            return string
