@@ -476,38 +476,64 @@
 #
 #     return True
 
+# class Solution(object):
+#     #function that calculate new string based on the last one
+#     def getString(self, lastString):
+#         currLength = 1
+#         curChar = lastString[0:1]
+#         string=''
+#         for car in lastString[1:]:
+#             if car != curChar:
+#                 string+=str(currLength)+curChar
+#                 curChar=car
+#                 currLength = 1
+#
+#             else:
+#                 currLength+=1
+#         #this is to insert in the string the set of caracter at the end of last string.
+#         string+=str(currLength)+curChar
+#         return string
+#
+#     def countAndSay(self, n):
+#         """
+#         :type n: int
+#         :rtype: str
+#         """
+#
+#         if n==1:
+#             return '1'
+#         elif n==2:
+#             return '11'
+#         else:
+#             currentN = 3
+#             string = '11'
+#             while currentN != n+1:
+#                 string = self.getString(string)
+#                 currentN+=1
+#             return string
+
 class Solution(object):
-    #function that calculate new string based on the last one
-    def getString(self, lastString):
-        currLength = 1
-        curChar = lastString[0:1]
-        string=''
-        for car in lastString[1:]:
-            if car != curChar:
-                string+=str(currLength)+curChar
-                curChar=car
-                currLength = 1
-
-            else:
-                currLength+=1
-        #this is to insert in the string the set of caracter at the end of last string.
-        string+=str(currLength)+curChar
-        return string
-
-    def countAndSay(self, n):
+    def combinationSum(self, candidates, target):
         """
-        :type n: int
-        :rtype: str
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
         """
+        results = []
+        cur = []
+        start = 0
+        self.backtracking(candidates, cur, target, results, start)
+        return results
 
-        if n==1:
-            return '1'
-        elif n==2:
-            return '11'
-        else:
-            currentN = 3
-            string = '11'
-            while currentN != n+1:
-                string = self.getString(string)
-                currentN+=1
-            return string
+    def backtracking(self, candidates, cur, target, results, start):
+        if sum(cur) == target:
+            results.append(cur[:])
+            return
+        elif sum(cur) > target:
+            return
+        for i in range(start, len(candidates)):
+            cur.append(candidates[i])
+
+
+            self.backtracking(candidates, cur, target, results, i)
+            cur.pop()
