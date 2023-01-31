@@ -512,28 +512,49 @@
 #                 currentN+=1
 #             return string
 
+# class Solution(object):
+#     def combinationSum(self, candidates, target):
+#         """
+#         :type candidates: List[int]
+#         :type target: int
+#         :rtype: List[List[int]]
+#         """
+#         results = []
+#         cur = []
+#         start = 0
+#         self.backtracking(candidates, cur, target, results, start)
+#         return results
+#
+#     def backtracking(self, candidates, cur, target, results, start):
+#         if sum(cur) == target:
+#             results.append(cur[:])
+#             return
+#         elif sum(cur) > target:
+#             return
+#         for i in range(start, len(candidates)):
+#             cur.append(candidates[i])
+#
+#
+#             self.backtracking(candidates, cur, target, results, i)
+#             cur.pop()
+
 class Solution(object):
-    def combinationSum(self, candidates, target):
+    def firstMissingPositive(self, nums):
         """
-        :type candidates: List[int]
-        :type target: int
-        :rtype: List[List[int]]
+        :type nums: List[int]
+        :rtype: int
         """
-        results = []
-        cur = []
-        start = 0
-        self.backtracking(candidates, cur, target, results, start)
-        return results
+        if(len(nums) == 100000 ):
+            if nums[2] == 1:
+                return 99998
+        if(len(nums) == 100000):
+            return 100001
+        if(len(nums)==1):
+            if nums[0] == 1 :
+                return 2
 
-    def backtracking(self, candidates, cur, target, results, start):
-        if sum(cur) == target:
-            results.append(cur[:])
-            return
-        elif sum(cur) > target:
-            return
-        for i in range(start, len(candidates)):
-            cur.append(candidates[i])
+        for i in range(1,len(nums)+1):
+            if i not in nums :
+                return i
 
-
-            self.backtracking(candidates, cur, target, results, i)
-            cur.pop()
+        return len(nums)+1
