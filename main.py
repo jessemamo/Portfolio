@@ -538,23 +538,46 @@
 #             self.backtracking(candidates, cur, target, results, i)
 #             cur.pop()
 
+# class Solution(object):
+#     def firstMissingPositive(self, nums):
+#         """
+#         :type nums: List[int]
+#         :rtype: int
+#         """
+#         if(len(nums) == 100000 ):
+#             if nums[2] == 1:
+#                 return 99998
+#         if(len(nums) == 100000):
+#             return 100001
+#         if(len(nums)==1):
+#             if nums[0] == 1 :
+#                 return 2
+#
+#         for i in range(1,len(nums)+1):
+#             if i not in nums :
+#                 return i
+#
+#         return len(nums)+1
+
 class Solution(object):
-    def firstMissingPositive(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        if(len(nums) == 100000 ):
-            if nums[2] == 1:
-                return 99998
-        if(len(nums) == 100000):
-            return 100001
-        if(len(nums)==1):
-            if nums[0] == 1 :
-                return 2
+    def trap(self, height):
+        if not height:
+            return 0
 
-        for i in range(1,len(nums)+1):
-            if i not in nums :
-                return i
+        res = 0
+        l, r = 0, len(height) - 1
+        leftMax, rightMax = height[l], height[r]
 
-        return len(nums)+1
+        while l < r:
+            if leftMax <= rightMax:
+                l += 1
+                leftMax = max(leftMax, height[l])
+
+                res += leftMax - height[l]
+            else:
+                r -= 1
+                rightMax = max(rightMax, height[r])
+
+                res += rightMax - height[r]
+
+        return res
