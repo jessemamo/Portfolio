@@ -559,25 +559,38 @@
 #
 #         return len(nums)+1
 
+# class Solution(object):
+#     def trap(self, height):
+#         if not height:
+#             return 0
+#
+#         res = 0
+#         l, r = 0, len(height) - 1
+#         leftMax, rightMax = height[l], height[r]
+#
+#         while l < r:
+#             if leftMax <= rightMax:
+#                 l += 1
+#                 leftMax = max(leftMax, height[l])
+#
+#                 res += leftMax - height[l]
+#             else:
+#                 r -= 1
+#                 rightMax = max(rightMax, height[r])
+#
+#                 res += rightMax - height[r]
+#
+#         return res
+
 class Solution(object):
-    def trap(self, height):
-        if not height:
-            return 0
+    def multiply(self, num1: str, num2: str) -> str:
+        num = {'0':0, '1':1, '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9}
+        r1=0
+        r2=0
 
-        res = 0
-        l, r = 0, len(height) - 1
-        leftMax, rightMax = height[l], height[r]
+        for i in num1:
+            r1=10*r1+num[i]
+        for j in num2:
+            r2=10*r2+num[j]
 
-        while l < r:
-            if leftMax <= rightMax:
-                l += 1
-                leftMax = max(leftMax, height[l])
-
-                res += leftMax - height[l]
-            else:
-                r -= 1
-                rightMax = max(rightMax, height[r])
-
-                res += rightMax - height[r]
-
-        return res
+        return str(r1*r2)
