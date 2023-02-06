@@ -582,15 +582,32 @@
 #
 #         return res
 
-class Solution(object):
-    def multiply(self, num1: str, num2: str) -> str:
-        num = {'0':0, '1':1, '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9}
-        r1=0
-        r2=0
+# class Solution(object):
+#     def multiply(self, num1: str, num2: str) -> str:
+#         num = {'0':0, '1':1, '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9}
+#         r1=0
+#         r2=0
+#
+#         for i in num1:
+#             r1=10*r1+num[i]
+#         for j in num2:
+#             r2=10*r2+num[j]
+#
+#         return str(r1*r2)
 
-        for i in num1:
-            r1=10*r1+num[i]
-        for j in num2:
-            r2=10*r2+num[j]
+class Solution:
+    def isMatch(self, s, p):
+        dp = [[False for _ in range(len(p)+1)] for i in range(len(s)+1)]
+        dp[0][0] = True
+        for j in range(1, len(p)+1):
+            if p[j-1] != '*':
+                break
+            dp[0][j] = True
 
-        return str(r1*r2)
+        for i in range(1, len(s)+1):
+            for j in range(1, len(p)+1):
+                if p[j-1] in {s[i-1], '?'}:
+                    dp[i][j] = dp[i-1][j-1]
+                elif p[j-1] == '*':
+                    dp[i][j] = dp[i-1][j] or dp[i][j-1]
+        return dp[-1][-1]
