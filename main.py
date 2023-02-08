@@ -612,15 +612,23 @@
 #                     dp[i][j] = dp[i-1][j] or dp[i][j-1]
 #         return dp[-1][-1]
 
+# class Solution(object):
+#     def jump(self, nums):
+#         n = len(nums)
+#         dp = [float('inf')] * n
+#         dp[0] = 0
+#
+#         for i in range(n - 1):
+#             for j in range(1, nums[i] + 1):
+#                 if i + j < n:
+#                     dp[i + j] = min(dp[i + j], dp[i] + 1)
+#
+#         return dp[-1]
+
 class Solution(object):
-    def jump(self, nums):
-        n = len(nums)
-        dp = [float('inf')] * n
-        dp[0] = 0
-
-        for i in range(n - 1):
-            for j in range(1, nums[i] + 1):
-                if i + j < n:
-                    dp[i + j] = min(dp[i + j], dp[i] + 1)
-
-        return dp[-1]
+    def permute(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        return map(list, itertools.permutations(nums))
