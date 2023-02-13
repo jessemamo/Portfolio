@@ -633,32 +633,47 @@
 #         """
 #         return map(list, itertools.permutations(nums))
 
+# class Solution(object):
+#     def permuteUnique(self, nums):
+#         """
+#         :type nums: List[int]
+#         :rtype: List[List[int]]
+#         """
+#
+#         if len(nums) == 1:
+#             return [nums]
+#
+#         res = []
+#         used = [False]*len(nums)
+#         nums.sort()
+#
+#         def backtracking(nums,used,path):
+#
+#             if len(path)==len(nums):
+#                 res.append(path[:])
+#             for i in range(len(nums)):
+#                 if not used[i]:
+#                     if used[i-1] == False and i >0 and nums[i] == nums[i-1]:
+#                         continue
+#                     used[i] = True
+#                     path.append(nums[i])
+#                     backtracking(nums,used,path)
+#                     path.pop()
+#                     used[i] = False
+#         backtracking(nums,used,[])
+#         return res
+
 class Solution(object):
-    def permuteUnique(self, nums):
+    def rotate(self, matrix):
         """
-        :type nums: List[int]
-        :rtype: List[List[int]]
+        :type matrix: List[List[int]]
+        :rtype: None Do not return anything, modify matrix in-place instead.
         """
-
-        if len(nums) == 1:
-            return [nums]
-
-        res = []
-        used = [False]*len(nums)
-        nums.sort()
-
-        def backtracking(nums,used,path):
-
-            if len(path)==len(nums):
-                res.append(path[:])
-            for i in range(len(nums)):
-                if not used[i]:
-                    if used[i-1] == False and i >0 and nums[i] == nums[i-1]:
-                        continue
-                    used[i] = True
-                    path.append(nums[i])
-                    backtracking(nums,used,path)
-                    path.pop()
-                    used[i] = False
-        backtracking(nums,used,[])
-        return res
+        n = len(matrix)
+        ref = [[] for i in range(n)]
+        for i in range(n):
+            for j in range(n):
+                ref[i].insert(0, matrix[j][i])
+        for i in range(n):
+            for j in range(n):
+                matrix[i][j] = ref[i][j]
