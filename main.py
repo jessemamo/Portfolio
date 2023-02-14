@@ -663,17 +663,21 @@
 #         backtracking(nums,used,[])
 #         return res
 
+# class Solution(object):
+#     def rotate(self, matrix):
+#         """
+#         :type matrix: List[List[int]]
+#         :rtype: None Do not return anything, modify matrix in-place instead.
+#         """
+#         n = len(matrix)
+#         ref = [[] for i in range(n)]
+#         for i in range(n):
+#             for j in range(n):
+#                 ref[i].insert(0, matrix[j][i])
+#         for i in range(n):
+#             for j in range(n):
+#                 matrix[i][j] = ref[i][j]
+
 class Solution(object):
-    def rotate(self, matrix):
-        """
-        :type matrix: List[List[int]]
-        :rtype: None Do not return anything, modify matrix in-place instead.
-        """
-        n = len(matrix)
-        ref = [[] for i in range(n)]
-        for i in range(n):
-            for j in range(n):
-                ref[i].insert(0, matrix[j][i])
-        for i in range(n):
-            for j in range(n):
-                matrix[i][j] = ref[i][j]
+    def myPow(self, x, n):
+        return x**n
