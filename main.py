@@ -678,6 +678,42 @@
 #             for j in range(n):
 #                 matrix[i][j] = ref[i][j]
 
+# class Solution(object):
+#     def myPow(self, x, n):
+#         return x**n
 class Solution(object):
-    def myPow(self, x, n):
-        return x**n
+    def solveNQueens(self, n):
+
+        result = []
+        def backtrack(row, queens):
+            if row == n:
+                result.append(queens)
+                return
+
+            for column in range(n):
+                invalid = False
+                for qx, qy in queens:
+                    if column == qy or abs(row-qx) == abs(column-qy):
+                        invalid = True
+
+                if invalid:
+                    continue
+
+                backtrack(row + 1, queens + [(row, column)])
+
+        backtrack(0, [])
+
+        boards = []
+        for solution in result:
+            boards.append(self.to_board(solution))
+
+        return boards
+
+    def to_board(self, queens):
+        n = len(queens)
+
+        board = []
+        for qx, qy in queens:
+            board.append('.'*qy + 'Q' + '.'*(n-qy-1))
+
+        return board
